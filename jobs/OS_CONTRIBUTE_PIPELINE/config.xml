@@ -108,10 +108,10 @@ return &quot;&lt;input name=\&quot;value\&quot; value=\&quot;${reactiveRefParam}
   <builders>
     <hudson.plugins.groovy.Groovy plugin="groovy@1.29">
       <scriptSource class="hudson.plugins.groovy.FileScriptSource">
-        <scriptFile>$JENKINS_HOME/jobs/$JOB_NAME/buildScripts/contributePipeline_build.groovy</scriptFile>
+        <scriptFile>/var/lib/jenkins/jobs/$JOB_NAME/buildScripts/contributePipeline_build.groovy</scriptFile>
       </scriptSource>
       <groovyName>Default</groovyName>
-      <parameters>-cp ${JENKINS_HOME}/jobs/OS_CONTRIBUTE_PIPELINE/buildScripts</parameters>
+      <parameters>-cp /var/lib/jenkins/jobs/OS_CONTRIBUTE_PIPELINE/buildScripts</parameters>
       <scriptParameters></scriptParameters>
       <properties></properties>
       <javaOpts></javaOpts>
@@ -119,11 +119,11 @@ return &quot;&lt;input name=\&quot;value\&quot; value=\&quot;${reactiveRefParam}
     </hudson.plugins.groovy.Groovy>
     <hudson.plugins.groovy.Groovy plugin="groovy@1.29">
       <scriptSource class="hudson.plugins.groovy.FileScriptSource">
-        <scriptFile>$JENKINS_HOME/userContent/scripts2/writeXMLProperties_cli.groovy</scriptFile>
+        <scriptFile>/var/lib/jenkins/userContent/scripts2/writeXMLProperties_cli.groovy</scriptFile>
       </scriptSource>
       <groovyName>Default</groovyName>
       <parameters></parameters>
-      <scriptParameters>-w $WORKSPACE -c ${JENKINS_HOME}/jobs/${JOB_NAME}/buildProps/report.properties</scriptParameters>
+      <scriptParameters>-w $WORKSPACE -c /var/lib/jenkins/jobs/${JOB_NAME}/buildProps/report.properties</scriptParameters>
       <properties></properties>
       <javaOpts></javaOpts>
       <classPath></classPath>

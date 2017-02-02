@@ -34,7 +34,7 @@
           <visibleItemCount>1</visibleItemCount>
           <script class="org.biouno.unochoice.model.GroovyScript">
             <script>def choices=[]
-siteConfigPath=&quot;${System.getenv(&apos;JENKINS_HOME&apos;)}/userContent/properties/jobSite.properties&quot;
+siteConfigPath=&quot;/var/lib/jenkins/userContent/properties/jobSite.properties&quot;
 siteConfig=new File(siteConfigPath)
 siteProperties=new Properties()
 siteProperties.load(siteConfig.newDataInputStream())
@@ -84,7 +84,7 @@ return choices</script>
           <script class="org.biouno.unochoice.model.GroovyScript">
             <script>import hudson.model.*
 def vBuildRef=PIPELINE
-def propFileName=&apos;autoReviewPipeline.properties&apos;	
+def propFileName=&apos;autoReviewPipeline.properties&apos;
 def propKey=&apos;GROUPBY_TAGS&apos;
 
 jenkinsURL=jenkins.model.Jenkins.instance.getRootUrl()
@@ -158,7 +158,7 @@ return choices.collect{&quot;Metadata_$it&quot; as String}</script>
           <script class="org.biouno.unochoice.model.GroovyScript">
             <script>import hudson.model.*
 def vBuildRef=PIPELINE
-def propFileName=&apos;autoReviewPipeline.properties&apos;	
+def propFileName=&apos;autoReviewPipeline.properties&apos;
 def propKey=&apos;GROUPBY_TAGS&apos;
 
 jenkinsURL=jenkins.model.Jenkins.instance.getRootUrl()
@@ -404,8 +404,8 @@ return html</script>
           <script class="org.biouno.unochoice.model.GroovyScript">
             <script>hidden_html=&quot;&quot;&quot;
 &lt;input id=&quot;planAction&quot; value=&quot;Select&quot; type=&quot;hidden&quot;/&gt;
-&lt;input id=&quot;dsProp&quot; value=&quot;${PROPERTIES}&quot; type=&quot;hidden&quot;/&gt; 
-&lt;input id=&quot;dsOper&quot; value=&quot;${OPERATOR.replace(&apos;equal&apos;,&apos;=&apos;)}&quot; type=&quot;hidden&quot;/&gt; 
+&lt;input id=&quot;dsProp&quot; value=&quot;${PROPERTIES}&quot; type=&quot;hidden&quot;/&gt;
+&lt;input id=&quot;dsOper&quot; value=&quot;${OPERATOR.replace(&apos;equal&apos;,&apos;=&apos;)}&quot; type=&quot;hidden&quot;/&gt;
 &lt;input id=&quot;propValue&quot; value=&quot;${PROP_VALUE}&quot; type=&quot;hidden&quot;/&gt;&quot;&quot;&quot;
 
 return hidden_html</script>
@@ -463,28 +463,28 @@ function addAnnotationCheckBox(mNode, mKey, mOper, mValue, planValue){
 	x.setAttribute(&quot;type&quot;, &quot;checkbox&quot;);
 	x.setAttribute(&quot;name&quot;, &quot;annoAction&quot;);
         x.setAttribute(&quot;value&quot;, planValue);
-	dNode.appendChild(x); 
+	dNode.appendChild(x);
 	var y = document.createElement(&quot;label&quot;);
 	y.setAttribute(&quot;class&quot;, &quot;attach-previous&quot;);
         var labelFor=mNode.value+&apos;.&apos;+document.getElementById(mKey).value+&apos;.&apos;+mValue;
          x.title= labelFor;
         y.setAttribute(&quot;for&quot;, labelFor);
 	y.innerHTML=mNode.value+&apos;.&apos;+document.getElementById(mKey).value+mOper+mValue+&apos;&lt;br/&gt;&apos;;
-	dNode.appendChild(y); 
+	dNode.appendChild(y);
 }
 
 /* the action is deleted from checklist as well as from hidden xtPlan text input */
 function deletePlannedActionv(){
   jQuery( document ).ready(function() {
                 var selected= [];
-            jQuery.each(jQuery(&quot;input[name=&apos;annoAction&apos;]:checked&quot;), function(){            
+            jQuery.each(jQuery(&quot;input[name=&apos;annoAction&apos;]:checked&quot;), function(){
                 selected.push(jQuery(this).val());
            delEntry=jQuery(this).val();
             console.log(&quot;Deleting:&quot;+ delEntry);
             document.getElementById(&quot;xtPlan&quot;).value=document.getElementById(&quot;xtPlan&quot;).value.replace(delEntry,&apos;&apos;);
            label2remove=jQuery(this).attr(&apos;title&apos;);
             console.log(&quot;Removing:&quot;+label2remove);
-           jQuery(&apos;label[for=&quot;&apos;+label2remove+&apos;&quot;]&apos;).remove();           
+           jQuery(&apos;label[for=&quot;&apos;+label2remove+&apos;&quot;]&apos;).remove();
            jQuery(this).remove();
             });
             //alert(&quot;Deleted: &quot; +selected.join(&quot;, &quot;));
@@ -494,9 +494,9 @@ function deletePlannedActionv(){
 function resetPlannedAction(){
 document.getElementById(&quot;xtPlan&quot;).value=&apos;&apos;;
   jQuery( document ).ready(function() {
-            jQuery.each(jQuery(&quot;input[name=&apos;annoAction&apos;]&quot;), function(){            
+            jQuery.each(jQuery(&quot;input[name=&apos;annoAction&apos;]&quot;), function(){
            label2remove=jQuery(this).attr(&apos;title&apos;);
-           jQuery(&apos;label[for=&quot;&apos;+label2remove+&apos;&quot;]&apos;).remove();           
+           jQuery(&apos;label[for=&quot;&apos;+label2remove+&apos;&quot;]&apos;).remove();
            jQuery(this).remove();
             });
             //alert(&quot;Deleted: &quot; +selected.join(&quot;, &quot;));
@@ -570,18 +570,18 @@ return helperJavaScript</script>
       <conditionalbuilders>
         <hudson.plugins.groovy.Groovy plugin="groovy@1.29">
           <scriptSource class="hudson.plugins.groovy.FileScriptSource">
-            <scriptFile>${JENKINS_HOME}/jobs/${JOB_NAME}/buildScripts/selecOnImageListMeta.groovy</scriptFile>
+            <scriptFile>/var/lib/jenkins/jobs/${JOB_NAME}/buildScripts/selecOnImageListMeta.groovy</scriptFile>
           </scriptSource>
           <groovyName>Default</groovyName>
           <parameters></parameters>
           <scriptParameters>-i $IMAGELIST_URL -o $WORKSPACE -q System.getenv().PLAN_ENTRIES</scriptParameters>
           <properties></properties>
           <javaOpts>-Xmx4000M</javaOpts>
-          <classPath>$JENKINS_HOME/userContent/lib/h2-1.3.176.jar</classPath>
+          <classPath>/var/lib/jenkins/userContent/lib/h2-1.3.176.jar</classPath>
         </hudson.plugins.groovy.Groovy>
         <hudson.plugins.groovy.Groovy plugin="groovy@1.29">
           <scriptSource class="hudson.plugins.groovy.FileScriptSource">
-            <scriptFile>${JENKINS_HOME}/jobs/${JOB_NAME}/buildScripts/trackSelectImageMeta.groovy</scriptFile>
+            <scriptFile>/var/lib/jenkins/jobs/${JOB_NAME}/buildScripts/trackSelectImageMeta.groovy</scriptFile>
           </scriptSource>
           <groovyName>Default</groovyName>
           <parameters></parameters>
@@ -607,7 +607,7 @@ return helperJavaScript</script>
       <conditionalbuilders>
         <hudson.plugins.groovy.Groovy plugin="groovy@1.29">
           <scriptSource class="hudson.plugins.groovy.FileScriptSource">
-            <scriptFile>${JENKINS_HOME}/jobs/${JOB_NAME}/buildScripts/arg_UC_copyArtifact.groovy</scriptFile>
+            <scriptFile>/var/lib/jenkins/jobs/${JOB_NAME}/buildScripts/arg_UC_copyArtifact.groovy</scriptFile>
           </scriptSource>
           <groovyName>Default</groovyName>
           <parameters></parameters>
@@ -665,17 +665,17 @@ dataShare=incell</propertiesContent>
         </org.jenkinsci.plugins.scriptler.config.Parameter>
         <org.jenkinsci.plugins.scriptler.config.Parameter>
           <name>vTemplatePath</name>
-          <value>${JENKINS_HOME}/jobs/$JOB_NAME/buildScripts</value>
+          <value>/var/lib/jenkins/jobs/$JOB_NAME/buildScripts</value>
         </org.jenkinsci.plugins.scriptler.config.Parameter>
       </parameters>
     </org.jenkinsci.plugins.scriptler.builder.ScriptlerBuilder>
     <hudson.plugins.groovy.Groovy plugin="groovy@1.29">
       <scriptSource class="hudson.plugins.groovy.FileScriptSource">
-        <scriptFile>$JENKINS_HOME/userContent/scripts2/writeXMLProperties_cli.groovy</scriptFile>
+        <scriptFile>/var/lib/jenkins/userContent/scripts2/writeXMLProperties_cli.groovy</scriptFile>
       </scriptSource>
       <groovyName>Default</groovyName>
       <parameters></parameters>
-      <scriptParameters>-w $WORKSPACE -c ${JENKINS_HOME}/jobs/${JOB_NAME}/buildProps/report.properties</scriptParameters>
+      <scriptParameters>-w $WORKSPACE -c /var/lib/jenkins/jobs/${JOB_NAME}/buildProps/report.properties</scriptParameters>
       <properties></properties>
       <javaOpts></javaOpts>
       <classPath></classPath>

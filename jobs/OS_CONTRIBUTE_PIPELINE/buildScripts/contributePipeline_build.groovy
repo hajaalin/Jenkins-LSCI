@@ -23,7 +23,7 @@ Last update AUG-02-2016
 
 def env = System.getenv()
 def jUrl=env['JENKINS_URL']
-def jHome=env['JENKINS_HOME']
+def jHome=/var/lib/jenkins
 def pipelineFileParameterPath=env['WORKSPACE']+'/user_pipeline.cp'
 def imageListFileParameterPath=env['WORKSPACE']+'/example_image_list.csv'
 def inputImageList=env['example_image_list.csv']

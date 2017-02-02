@@ -53,9 +53,9 @@ def jobName=jobBuild[0]
 def buildURL="${jenkinsURL}job/$jobName/$buildNum/"
 
 options=System.getenv()
-  
+
 println "JENKINS_HOME: ${options.JENKINS_HOME}"
-  def jHome=options.JENKINS_HOME
+  def jHome="/var/lib/jenkins"
   def apiCall="${buildURL}api/xml?"
   println apiCall
  //Setup a connection to pull data in with REST
@@ -67,7 +67,7 @@ println "JENKINS_HOME: ${options.JENKINS_HOME}"
 
   if (connection.responseCode == 200 || connection.responseCode == 201){
     returnMessage = connection.content.text
-//print out the full response 
+//print out the full response
 	//println returnMessage
 //parse the xml response
     def freeStyleBuild = new XmlSlurper().parseText(returnMessage)
@@ -76,17 +76,17 @@ println "JENKINS_HOME: ${options.JENKINS_HOME}"
     urlParts=freeStyleBuild.url.toString().split('/')
 /*Job name extraction from URL */
     jobName=urlParts[4].replace('%20',' ') //replace URL spaces
-    
+
     jPath="$jHome\\jobs\\$jobName\\builds\\$buildID\\$buildFolder"
 
-/* Can get and print key-values for used parameters */ 
-println "Here are your build parameters:"   
+/* Can get and print key-values for used parameters */
+println "Here are your build parameters:"
 	    freeStyleBuild.action.parameter.each{
 	    println "${it.name} : ${it.value}${it.originalFileName}"
 	    }
 
 	println "Copying Files from Path:\n\t $jPath"
-          
+
 //selective copy using ant
           def ant=new AntBuilder()
           fileFilter=artifactFilter.split(',')
@@ -94,12 +94,12 @@ println "Here are your build parameters:"
             filter=it.trim()
           ant.copy(todir:"${options.WORKSPACE}", overwrite:true){
              fileset(dir:jPath){
-             include(name:"$filter") 
+             include(name:"$filter")
                }
             }
-            
+
           }//end each
-          
+
   } else {
     println "Error Connecting to " + url
   }

@@ -25,7 +25,7 @@
           <randomName>choice-parameter-529391686944002</randomName>
           <visibleItemCount>1</visibleItemCount>
           <script class="org.biouno.unochoice.model.GroovyScript">
-            <script>siteConfigPath=&quot;${System.getenv(&apos;JENKINS_HOME&apos;)}/userContent/properties/jobSite.properties&quot;
+            <script>siteConfigPath=&quot;/var/lib/jenkins/userContent/properties/jobSite.properties&quot;
 siteConfig=new File(siteConfigPath)
 siteProperties=new Properties()
 siteProperties.load(siteConfig.newDataInputStream())
@@ -50,7 +50,7 @@ return choices
           <visibleItemCount>1</visibleItemCount>
           <script class="org.biouno.unochoice.model.GroovyScript">
             <script>/*Load default site shares */
-siteConfigPath=&quot;${System.getenv(&apos;JENKINS_HOME&apos;)}/userContent/properties/jobSite.properties&quot;
+siteConfigPath=&quot;/var/lib/jenkins/userContent/properties/jobSite.properties&quot;
 siteConfig=new File(siteConfigPath)
 siteProperties=new Properties()
 siteProperties.load(siteConfig.newDataInputStream())
@@ -74,13 +74,13 @@ html=&apos;&apos;&apos;
 case&quot;From_InCell_Network&quot;:
 	html=&quot;&quot;&quot;
 &lt;input name=&quot;value&quot; value=&quot;$UNC_INCELL_SHARE&quot; class=&quot;setting-input&quot; type=&quot;text&quot;&gt;
-&quot;&quot;&quot;	
+&quot;&quot;&quot;
 break
 
 case&quot;From_Yokogawa_Network&quot;:
 	html=&quot;&quot;&quot;
 &lt;input name=&quot;value&quot; value=&quot;$UNC_YOKOGAWA_SHARE&quot; class=&quot;setting-input&quot; type=&quot;text&quot;&gt;
-&quot;&quot;&quot;	
+&quot;&quot;&quot;
 break
 
 default:
@@ -99,7 +99,7 @@ return html</script>
         </org.biouno.unochoice.DynamicReferenceParameter>
         <org.biouno.unochoice.CascadeChoiceParameter plugin="uno-choice@1.4">
           <name>IMAGE_SOURCE</name>
-          <description>&lt;p&gt;Select&lt;b&gt; InCell or Yokogawa image source folder&lt;/b&gt; 
+          <description>&lt;p&gt;Select&lt;b&gt; InCell or Yokogawa image source folder&lt;/b&gt;
 &lt;p&gt;
 &lt;li&gt;Only folders that include acquisition metadata are parsed&lt;/li&gt;&lt;p&gt;
 &lt;li&gt;Image sets from &lt;b&gt;multiple plates&lt;/b&gt; may be combined by selecting their parent folder&lt;/li&gt;</description>
@@ -253,7 +253,7 @@ helperJavaScript=&quot;&quot;&quot;
 /* Function creates map when both key and value are provided from  CV selection */
 function addPlannedPathAction(plan) {
 var planAction= &apos;map&apos;;
-var mNode= document.getElementById(&quot;mNode&quot;).value; 
+var mNode= document.getElementById(&quot;mNode&quot;).value;
 var mKey= document.getElementById(&quot;mPathKey&quot;);
 var mValue = document.getElementById(&quot;mPathValue&quot;).value;
 var dsOper=&apos;=&apos;
@@ -281,7 +281,7 @@ return html+helperJavaScript</script>
         <org.biouno.unochoice.ChoiceParameter plugin="uno-choice@1.4">
           <name>MAPPING</name>
           <description>&lt;p&gt;Select an option for mapping acqusition channels to biological concepts in the pipeline
-&lt;li&gt;&lt;b&gt;Assisted option is SLOW! &lt;/b&gt;Will parse an xdce file in IMAGE_SOURCE folder to determine channels 
+&lt;li&gt;&lt;b&gt;Assisted option is SLOW! &lt;/b&gt;Will parse an xdce file in IMAGE_SOURCE folder to determine channels
 &lt;p&gt;</description>
           <randomName>choice-parameter-529391701463027</randomName>
           <visibleItemCount>1</visibleItemCount>
@@ -366,7 +366,7 @@ return html+hidden_html
 
 /*helper methods */
 
-/* method to find a file with particular extension */ 
+/* method to find a file with particular extension */
 def returnChannelOptions(path, xtnsion){
 def channelOptions=[]
 folder= new File(path)
@@ -401,7 +401,7 @@ def ImageStack = new XmlSlurper().parse(xdceFile)
         </org.biouno.unochoice.DynamicReferenceParameter>
         <org.biouno.unochoice.DynamicReferenceParameter plugin="uno-choice@1.4">
           <name></name>
-          <description>&lt;p&gt;Map channel recorded by Instrument to a Pipeline Object  
+          <description>&lt;p&gt;Map channel recorded by Instrument to a Pipeline Object
 &lt;h1 style=&quot;color:blue&quot;&gt;Image List Annotation&lt;/h1&gt;</description>
           <randomName>choice-parameter-529391709937078</randomName>
           <visibleItemCount>1</visibleItemCount>
@@ -488,7 +488,7 @@ return &quot;&lt;input name=\&quot;value\&quot; value=\&quot;${refParam}\&quot; 
 /* Function creates map when both key and value are provided from  CV selection */
 function addPlannedAction() {
 var planAction= &apos;map&apos;;
-var mKeyPrefix= &apos;channel&apos;; //prefix of mKey 
+var mKeyPrefix= &apos;channel&apos;; //prefix of mKey
 var mKey= document.getElementById(&quot;mKey&quot;);
 var dsOper= &apos;=&apos;
 var mValue = document.getElementById(&quot;mValue&quot;).value;
@@ -510,28 +510,28 @@ function addAnnotationCheckBox(plan,mKeyPrefix, mKey, mOper, mValue, planValue){
 	x.setAttribute(&quot;type&quot;, &quot;checkbox&quot;);
 	x.setAttribute(&quot;name&quot;, nameAction);
         x.setAttribute(&quot;value&quot;, planValue);
-	dNode.appendChild(x); 
+	dNode.appendChild(x);
 	var y = document.createElement(&quot;label&quot;);
 	y.setAttribute(&quot;class&quot;, &quot;attach-previous&quot;);
         var labelFor=mKeyPrefix +&apos;.&apos;+document.getElementById(mKey).value+&apos;.&apos;+mValue;
          x.title= labelFor;
         y.setAttribute(&quot;for&quot;, labelFor);
 	y.innerHTML=mKeyPrefix+&apos;.&apos;+document.getElementById(mKey).value+mOper+mValue+&apos;&lt;br/&gt;&apos;;
-	dNode.appendChild(y); 
+	dNode.appendChild(y);
 }
 
 /* the action is deleted from checklist as well as from hidden xtPlan text input */
 function deletePlannedActionv(plan,nameAction){
   jQuery( document ).ready(function() {
                 var selected= [];
-            jQuery.each(jQuery(&quot;input[name=&quot;+nameAction+&quot;]:checked&quot;), function(){            
+            jQuery.each(jQuery(&quot;input[name=&quot;+nameAction+&quot;]:checked&quot;), function(){
                 selected.push(jQuery(this).val());
            delEntry=jQuery(this).val();
             console.log(&quot;Deleting:&quot;+ delEntry);
             document.getElementById(plan).value=document.getElementById(plan).value.replace(delEntry,&apos;&apos;);
            label2remove=jQuery(this).attr(&apos;title&apos;);
             console.log(&quot;Removing:&quot;+label2remove);
-           jQuery(&apos;label[for=&quot;&apos;+label2remove+&apos;&quot;]&apos;).remove();           
+           jQuery(&apos;label[for=&quot;&apos;+label2remove+&apos;&quot;]&apos;).remove();
            jQuery(this).remove();
             });
             //alert(&quot;Deleted: &quot; +selected.join(&quot;, &quot;));
@@ -541,9 +541,9 @@ function deletePlannedActionv(plan,nameAction){
 function resetPlannedAction(plan,nameAction){
 document.getElementById(plan).value=&apos;&apos;;
   jQuery( document ).ready(function() {
-            jQuery.each(jQuery(&quot;input[name=&quot;+nameAction+&quot;]&quot;), function(){            
+            jQuery.each(jQuery(&quot;input[name=&quot;+nameAction+&quot;]&quot;), function(){
            label2remove=jQuery(this).attr(&apos;title&apos;);
-          jQuery(&apos;label[for=&quot;&apos;+label2remove+&apos;&quot;]&apos;).remove();          
+          jQuery(&apos;label[for=&quot;&apos;+label2remove+&apos;&quot;]&apos;).remove();
            jQuery(this).remove();
             });
             //alert(&quot;Deleted: &quot; +selected.join(&quot;, &quot;));
@@ -583,7 +583,7 @@ return helperJavaScript</script>
       </condition>
       <buildStep class="hudson.plugins.groovy.Groovy" plugin="groovy@1.29">
         <scriptSource class="hudson.plugins.groovy.FileScriptSource">
-          <scriptFile>${JENKINS_HOME}/jobs/${JOB_NAME}/buildScripts/xdceSlurperMapRecurse.groovy</scriptFile>
+          <scriptFile>/var/lib/jenkins/jobs/${JOB_NAME}/buildScripts/xdceSlurperMapRecurse.groovy</scriptFile>
         </scriptSource>
         <groovyName>Default</groovyName>
         <parameters></parameters>
@@ -602,10 +602,10 @@ return helperJavaScript</script>
       </condition>
       <buildStep class="hudson.plugins.groovy.Groovy" plugin="groovy@1.29">
         <scriptSource class="hudson.plugins.groovy.FileScriptSource">
-          <scriptFile>${JENKINS_HOME}/jobs/${JOB_NAME}/buildScripts/yokoCpImageList_build.groovy</scriptFile>
+          <scriptFile>/var/lib/jenkins/jobs/${JOB_NAME}/buildScripts/yokoCpImageList_build.groovy</scriptFile>
         </scriptSource>
         <groovyName>Default</groovyName>
-        <parameters>-cp ${JENKINS_HOME}/jobs/${JOB_NAME}/buildScripts</parameters>
+        <parameters>-cp /var/lib/jenkins/jobs/${JOB_NAME}/buildScripts</parameters>
         <scriptParameters>-i $IMAGE_SOURCE -o $WORKSPACE -m $WAVELENGTH_MAP</scriptParameters>
         <properties></properties>
         <javaOpts></javaOpts>
@@ -625,7 +625,7 @@ return helperJavaScript</script>
  allows unified processing by the adaptCPimageList groovy script
 */
 env=System.getenv()
-File file = new File(&quot;${env.WORKSPACE}/LIST_FROM&quot;)  
+File file = new File(&quot;${env.WORKSPACE}/LIST_FROM&quot;)
 boolean fileRenamed = file.renameTo(new File(&apos;imageList.csv&apos;))
 
 
@@ -650,7 +650,7 @@ boolean fileRenamed = file.renameTo(new File(&apos;imageList.csv&apos;))
       </condition>
       <buildStep class="hudson.plugins.groovy.Groovy" plugin="groovy@1.29">
         <scriptSource class="hudson.plugins.groovy.FileScriptSource">
-          <scriptFile>${JENKINS_HOME}/jobs/${JOB_NAME}/buildScripts/adaptImageList.groovy</scriptFile>
+          <scriptFile>/var/lib/jenkins/jobs/${JOB_NAME}/buildScripts/adaptImageList.groovy</scriptFile>
         </scriptSource>
         <groovyName>Default</groovyName>
         <parameters></parameters>
@@ -678,11 +678,11 @@ boolean fileRenamed = file.renameTo(new File(&apos;imageList.csv&apos;))
     </org.jenkinsci.plugins.scriptler.builder.ScriptlerBuilder>
     <hudson.plugins.groovy.Groovy plugin="groovy@1.29">
       <scriptSource class="hudson.plugins.groovy.FileScriptSource">
-        <scriptFile>$JENKINS_HOME/userContent/scripts2/writeXMLProperties_cli.groovy</scriptFile>
+        <scriptFile>/var/lib/jenkins/userContent/scripts2/writeXMLProperties_cli.groovy</scriptFile>
       </scriptSource>
       <groovyName>Default</groovyName>
       <parameters></parameters>
-      <scriptParameters>-w $WORKSPACE -c ${JENKINS_HOME}/jobs/${JOB_NAME}/buildProps/report.properties</scriptParameters>
+      <scriptParameters>-w $WORKSPACE -c /var/lib/jenkins/jobs/${JOB_NAME}/buildProps/report.properties</scriptParameters>
       <properties></properties>
       <javaOpts></javaOpts>
       <classPath></classPath>
