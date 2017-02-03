@@ -52,7 +52,7 @@ commonPrefix="imageList"
 generatedImgList=_outputFolder+"/"+"${commonPrefix}.csv"
 def outFile=new File(generatedImgList)
 
-propName="$_outputFolder./plateList.properties"
+propName=_outputFolder+"/plateList.properties"
 
 
 /* If target exists we iterate the sub-folders */
@@ -116,4 +116,3 @@ if (measurementDataFile.exists()&&measurementDetailFile.exists()){
     dir.eachDirRecurse({it->processMeasurements(it)})
 
     }//end else
-
