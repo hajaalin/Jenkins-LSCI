@@ -49,7 +49,7 @@ SecurityContext ctx = new SecurityContext(user.getGroupId());
 
 
 // ID of the plate we want to list the images of.
-long plateId = 1
+long plateId = 2
 // The same plate ID in a list.
 Collection<Long> plateIds = (Collection<Long>) new ArrayList<Long>()
 plateIds.add(new Long(plateId))
@@ -99,14 +99,19 @@ param.exp(rtypes.rlong(userId));
 //param.allExps()
 //param.allGrps()
 //Load the orphaned datasets.
-param.orphan();
+//param.orphan();
 //Do not load the images.
 param.noLeaves(); //indicate to load the images
 //param.noLeaves(); //no images loaded, this is the default value.
 
 // Is omero.model.screen.Plate the right class to search here?
-List<IObject> results = proxy.loadContainerHierarchy(
+List<IObject> results
+results = proxy.loadContainerHierarchy(
 	Plate.class.getName(), plateIds, param);
+println results
+
+results = proxy.loadContainerHierarchy(
+	Project.class.getName(), new ArrayList<Long>(), param);
 println results
 
 // Iterator<IObject> i2 = results.iterator();
